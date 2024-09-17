@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <style>
+        body {
+            background-color:#FC7FB6;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #FFBBE1;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 5px 10px rgba(184, 2, 87, 0.5); ;
+            width: 325px;
+            text-align: left;
+            
+            border: 1px solid #B80257;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #DD356E;
+            text-align:center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            
+        }
+        form > * {
+            margin-bottom: 15px;
+            border-radius: 3px;
+            
+        }
+        input {
+            padding: 7px;
+            border: 1px solid #B80257; /* Input field border color */
+            border-radius: 5px;
+        }
+        button {
+            background-color: #DD356E;
+            color: #FFBBE1;
+            padding: 10px;
+            border: #DD356E;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+        button:hover {
+            background-color: #B80257;
+        }
+        a {
+            color: #B80257;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Register</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.username.label_tag }} {{ form.username }}
+            {{ form.name.label_tag }} {{ form.name }}
+            {{ form.email.label_tag }} {{ form.email }}
+            {{ form.password1.label_tag }} {{ form.password1 }}
+            {{ form.password2.label_tag }} {{ form.password2 }}
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+    </div>
+</body>
+</html>

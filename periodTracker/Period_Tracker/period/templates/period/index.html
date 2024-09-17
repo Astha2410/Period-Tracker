@@ -1,0 +1,18 @@
+<!-- templates/period.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Period Tracker</title>
+</head>
+<body>
+    <h1>Period Tracker</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Calculate Next Date</button>
+    </form>
+    {% if next_date %}
+        <p>Your next period date is: {{ next_date }}</p>
+    {% endif %}
+</body>
+</html>

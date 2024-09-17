@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Period List</title>
+</head>
+<body>
+    <h1>Periods</h1>
+    <ul>
+        {% for period in periods %}
+            <li>{{period.user.name}}:{{ period.start_date }} - {{ period.end_date }}-cycle Length:{{period.cycle_length}}days</li>
+        {% endfor %}
+    </ul>
+</html>

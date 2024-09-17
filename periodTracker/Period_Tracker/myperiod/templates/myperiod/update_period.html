@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Period Information</title>
+    <style>
+        body {
+            background-color: #FFBBE1;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            background-color: #FFFFFF;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px #B80257;
+            text-align: center;
+        }
+        h1 {
+            color: #B80257;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input[type="text"], input[type="date"], select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #B80257;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #B80257;
+            color: #FFFFFF;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #DD356E;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Update Period Information</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Update</button>
+        </form>
+    </div>
+</body>
+</html>

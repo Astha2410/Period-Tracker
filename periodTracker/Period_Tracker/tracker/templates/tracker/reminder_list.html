@@ -1,0 +1,15 @@
+<!-- tracker/templates/tracker/reminder_list.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reminder List</title>
+</head>
+<body>
+    <h1>Reminders</h1>
+    <ul>
+        {% for reminder in reminders %}
+            <li>{{ reminder.user.name }}: {{ reminder.date }} - {{ reminder.message }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

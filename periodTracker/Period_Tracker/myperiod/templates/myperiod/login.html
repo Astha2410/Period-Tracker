@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        body {
+            background-color: #FC7FB6;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #FFBBE1;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 5px 10px rgba(184, 2, 87, 0.5);
+            width: 330px;
+            height: 450px;
+            text-align: left;
+            border: 1px solid #B80257;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #DD356E;
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        form > * {
+            margin-bottom: 15px;
+            border-radius: 3px;
+        }
+        input {
+            padding: 10px;
+            border: 1px solid #B80257; /* Input field border color */
+            border-radius: 5px;
+            width : 92%;
+            margin-top: 15px;
+        }
+        button {
+            background-color: #DD356E;
+            color: #FFBBE1;
+            padding: 10px;
+            border: #DD356E;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%; /* Make button full width */
+            margin-top: 30px; /* Add margin to top */
+        }
+        button:hover {
+            background-color: #B80257;
+        }
+        a {
+            color: #B80257;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Login</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+    </div>
+</body>
+</html>

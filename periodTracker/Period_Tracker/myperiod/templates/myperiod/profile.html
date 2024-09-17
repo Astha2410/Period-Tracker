@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <!-- FullCalendar CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" rel="stylesheet">
+    <!-- jQuery and FullCalendar JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    <style>
+        body {
+            background-color: #FFBBE1;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 1500px;
+            margin: 5px;
+            background-color: #FFFFFF;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px #B80257;
+            text-align: center;
+        }
+        h1, h2, p {
+            color: #B80257;
+        }
+        a {
+            color: #DD356E;
+        }
+        .calendar-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .calendar {
+            width: 32%;
+        }
+        .fc-event {
+            background-color: #DD356E !important;
+            border: none !important;
+            color: #FFFFFF !important;
+        }
+        .info-container {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+        .info-left,
+        .info-right {
+            width: 45%;
+        }
+        .info-center {
+            width: 10%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome, {{ user_name }}!</h2>
+        {% if period_data %}
+            <div class="info-container">
+                <div class="info-left">
+                    <p>Your last period started on: {{ period_data.start_date }}</p>
+                    <p>Your period lasts: {{ period_data.period_length }} days</p>
+                </div>
+                <div class="info-center">
+                    <a href="{% url 'update_period' %}">Update Period Information</a>
+                </div>
+                <div class="info-right">
+                    <p>Your cycle length is: {{ period_data.cycle_length }} days</p>
+                    <p>Your next period is expected on: {{ next_period_date }}</p>
+                </div>
+            </div>
+
+            <div class="calendar-container">
+                <div id="calendar1" class="calendar"></div>
+                <div id="calendar2" class="calendar"></div>
+                <div id="calendar3" class="calendar"></div>
+            </div>
+            <script>
+                $(document).ready(function() {
+                    function renderCalendars(startDate) {
+                        var currentDate = moment(startDate);
+
+                        renderCalendar('#calendar1', currentDate.format('YYYY-MM-DD'));
+                        renderCalendar('#calendar2', currentDate.add(1, 'months').format('YYYY-MM-DD'));
+                        renderCalendar('#calendar3', currentDate.add(1, 'months').format('YYYY-MM-DD'));
+                    }
+
+                    function renderCalendar(id, date) {
+                        $(id).fullCalendar('destroy'); // Destroy any existing instance of the calendar
+                        $(id).fullCalendar({
+                            header: {
+                                left: '',
+                                center: 'title',
+                                right: ''
+                            },
+                            defaultDate: date,
+                            events: [
+                                {% for period in period_dates %}
+                                {
+                                    title: 'Period',
+                                    start: '{{ period.start }}',
+                                    end: '{{ period.end }}',
+                                    color: '#DD356E'
+                                }{% if not forloop.last %},{% endif %}
+                                {% endfor %}
+                            ]
+                        });
+                    }
+
+                    var initialStartDate = "{{ period_data.start_date }}";
+                    renderCalendars(initialStartDate);
+                });
+            </script>
+        {% else %}
+            <p>You have not entered any period information yet.</p>
+            <a href="{% url 'update_period' %}">Enter Period Information</a>
+        {% endif %}
+    </div>
+</body>
+</html>
